@@ -1,0 +1,6 @@
+<mat-card>
+    <h2>Home</h2>
+    <div *ngIf="data$ | async as data">
+        <p>{{ castToDashboardData(data).message }}</p>
+    </div>
+</mat-card>

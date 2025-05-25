@@ -1,0 +1,28 @@
+{
+  "users": [
+  {
+    "id": 1,
+    "email": "admin@example.com",
+    "password": "admin123",
+    "name": "Admin User",
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "email": "user1@example.com",
+    "password": "user123",
+    "name": "User One",
+    "role": "user"
+  },
+  {
+    "id": 3,
+    "email": "user2@example.com",
+    "password": "user456",
+    "name": "User Two",
+    "role": "user"
+  }
+  ],
+  "dashboard": {
+    "message": "Welcome to your dashboard!"
+  }
+}
