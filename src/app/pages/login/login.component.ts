@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -42,9 +43,10 @@ export class LoginComponent {
         this.router.navigate(['/user-profile', res.user.id]);
       }
     },
-    error: (err) => {
+     error: (err) => {
       console.error(err);
-    }
+      alert('Login failed'); 
+      }
     });
   }
 }

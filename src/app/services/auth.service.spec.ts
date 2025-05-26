@@ -31,16 +31,16 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should log in and store token', () => {
-    const credentials = { email: 'test@example.com', password: '123456' };
-    service.login(credentials).subscribe(res => {
-      expect(res.token).toBe(dummyToken);
-      expect(service.getToken()).toBe(dummyToken);
-    });
+  it('should log in and store token', (done) => {
+  const http = TestBed.inject(HttpTestingController);
+  service.login({ email: 'test@example.com', password: '123456' }).subscribe(() => {
+    expect(localStorage.getItem('jwt_token')).toBe('fake-jwt-token');
+    done();
+  });
 
-    const req = httpMock.expectOne('/api/login');
+  const req = http.expectOne('/api/login');
     expect(req.request.method).toBe('POST');
-    req.flush({ token: dummyToken });
+    req.flush({ accessToken: 'fake-jwt-token', user: { email: 'test@example.com' } });
   });
 
   it('should clear token on logout', () => {
@@ -56,13 +56,12 @@ describe('AuthService', () => {
     expect(service.isLoggedIn()).toBeFalse();
 });
 
-  it('should expose user observable', (done) => {
-  localStorage.setItem('jwt_token', 'fake-jwt-token'); 
+it('should expose user observable', () => {
+    localStorage.setItem('jwt_token', 'fake-jwt-token');
+    const service = TestBed.inject(AuthService);
 
-  const service = TestBed.inject(AuthService);
-  service.getUser().subscribe(user => {
-    expect(user).toEqual({ token: 'fake-jwt-token' });
-    done();
+    service.getUser().subscribe(user => {
+      expect(user).toEqual({ token: 'fake-jwt-token' });
     });
   });
 });
